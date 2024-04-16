@@ -14,17 +14,15 @@ namespace MiniProject_TrainReservation
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine("                                        WELCOME TO RAILWAYS                    ");
+            Console.WriteLine("                                        WELCOME TO RAILWAYS  Tickect Booking System                  ");
             Console.ResetColor();
             Console.WriteLine();
 
 
 
-            // Assume admin login details
+            
             string adminUsername = "admin";
             string adminPassword = "admin@123";
-
-            // User login details
             string userLoginId = "user";
             string userPassword = "user@123";
 
@@ -117,9 +115,6 @@ namespace MiniProject_TrainReservation
         static void AddTrain()
         {
             Console.WriteLine("\nAdd Train:");
-
-            // Prompt the user for train details
-
             Console.Write("Enter Train ID: ");
             int trainId = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter Class: ");
@@ -142,7 +137,7 @@ namespace MiniProject_TrainReservation
 
             using (var context = new MiniCaseStudyDBEntities())
             {
-                // Check if the train already exists
+                
                 var existingTrain = context.trains.FirstOrDefault(t => t.Train_Id == trainId);
                 if (existingTrain != null)
                 {
@@ -150,7 +145,7 @@ namespace MiniProject_TrainReservation
                     return;
                 }
 
-                // Create a new train entity
+                
                 var newTrain = new train
                 {
                     Train_Id = trainId,
@@ -164,7 +159,6 @@ namespace MiniProject_TrainReservation
                     IsActive = isActive
                 };
 
-                // Add the new train to the database
                 context.trains.Add(newTrain);
                 context.SaveChanges();
 
@@ -174,15 +168,12 @@ namespace MiniProject_TrainReservation
         static void UpdateTrain()
         {
             Console.WriteLine("\nUpdate Train:");
-
-            // Prompt the user for train details to update
-
             Console.Write("Enter Train ID to update: ");
             int trainId = Convert.ToInt32(Console.ReadLine());
 
             using (var context = new MiniCaseStudyDBEntities())
             {
-                // Check if the train exists
+                
                 var train = context.trains.FirstOrDefault(t => t.Train_Id == trainId);
                 if (train != null)
                 {
@@ -203,7 +194,7 @@ namespace MiniProject_TrainReservation
                     Console.Write("Is Active (Active/Inactive): ");
                     string newIsActive = Console.ReadLine();
 
-                    // Update train details
+                    
                     train.TrainName = newTrainName;
                     train.FromStation = newFromStation;
                     train.ToStation = newToStation;
@@ -211,8 +202,6 @@ namespace MiniProject_TrainReservation
                     train.AvailableBerths = newAvailableBerths;
                     train.Fare = newFare;
                     train.IsActive = newIsActive;
-
-                    // Save changes to the database
                     context.SaveChanges();
 
                     Console.WriteLine("Train details updated successfully.");
@@ -380,15 +369,12 @@ namespace MiniProject_TrainReservation
 
             using (var context = new MiniCaseStudyDBEntities())
             {
-                // Check if the train is active
                 var train = context.trains.FirstOrDefault(t => t.Train_Id == trainId && t.Class == trainClass);
 
                 if (train != null && train.IsActive.Equals("Active", StringComparison.OrdinalIgnoreCase))
                 {
-                    // Check if there are enough available berths
                     if (train.AvailableBerths >= seatsBooked)
                     {
-                        // Book the ticket
                         decimal totalAmount = (decimal)(seatsBooked * train.Fare);
                         var booking = new Booking
                         {
@@ -397,18 +383,18 @@ namespace MiniProject_TrainReservation
                             PassengerName = passengerName,
                             SeatsBooked = seatsBooked,
                             BookingDate = DateTime.Now,
-                            DepartureDate = dateOfTravel, // Set date of travel
-                            TotalAmount = totalAmount // Calculate total amount
+                            DepartureDate = dateOfTravel, 
+                            TotalAmount = totalAmount 
                         };
 
-                        // Update available berths
+                        
                         train.AvailableBerths -= seatsBooked;
 
-                        // Add booking to the database
+                        
                         context.Bookings.Add(booking);
                         context.SaveChanges();
 
-                        // Display booking details
+                        
                         Console.WriteLine();
                         Console.WriteLine("Ticket booked successfully!");
                         Console.WriteLine();
@@ -440,9 +426,6 @@ namespace MiniProject_TrainReservation
         static void CancelTicket()
         {
             Console.WriteLine("Canceling a ticket...");
-
-            // Prompt the user for the booking details
-
             Console.Write("Enter Booking ID: ");
             int bookingId = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter Seats to Cancel: ");
@@ -450,18 +433,14 @@ namespace MiniProject_TrainReservation
 
             using (var context = new MiniCaseStudyDBEntities())
             {
-                // Retrieve the booking
                 var booking = context.Bookings.FirstOrDefault(b => b.Booking_Id == bookingId);
                 if (booking != null)
                 {
-                    // Calculate refund amount
                     decimal refundAmount = (decimal)(seatsToCancel * booking.train.Fare);
 
-                    // Cancel the ticket
-                    // Check if the requested number of seats to cancel is less than or equal to the booked seats
                     if (seatsToCancel <= booking.SeatsBooked)
                     {
-                        // Add cancellation details to the CancellationDetails table
+                   
                         var cancellationDetails = new CancellationDetail
                         {
                             BookingId = bookingId,
@@ -471,11 +450,8 @@ namespace MiniProject_TrainReservation
                         };
 
                         context.CancellationDetails.Add(cancellationDetails);
-
-                        // Update the booked seats
                         booking.SeatsBooked -= seatsToCancel;
 
-                        // Soft delete if all seats are canceled
                         if (booking.SeatsBooked == 0)
                         {
                             context.Bookings.Remove(booking);
