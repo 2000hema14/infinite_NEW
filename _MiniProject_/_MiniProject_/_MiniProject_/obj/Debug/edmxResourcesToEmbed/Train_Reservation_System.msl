@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MiniCaseStudyDBModelStoreContainer" CdmEntityContainer="MiniCaseStudyDBEntities">
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="MiniCaseStudyDBModel.Booking">
+        <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="Booking_Id" ColumnName="Booking_Id" />
+          <ScalarProperty Name="Train_Id" ColumnName="Train_Id" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="PassengerName" ColumnName="PassengerName" />
+          <ScalarProperty Name="SeatsBooked" ColumnName="SeatsBooked" />
+          <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+          <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CancellationDetails">
+      <EntityTypeMapping TypeName="MiniCaseStudyDBModel.CancellationDetail">
+        <MappingFragment StoreEntitySet="CancellationDetails">
+          <ScalarProperty Name="CancellationDetailId" ColumnName="CancellationDetailId" />
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+          <ScalarProperty Name="SeatsCancelled" ColumnName="SeatsCancelled" />
+          <ScalarProperty Name="RefundAmount" ColumnName="RefundAmount" />
+          <ScalarProperty Name="CancellationDate" ColumnName="CancellationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="trains">
+      <EntityTypeMapping TypeName="MiniCaseStudyDBModel.train">
+        <MappingFragment StoreEntitySet="train">
+          <ScalarProperty Name="Train_Id" ColumnName="Train_Id" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="TrainName" ColumnName="TrainName" />
+          <ScalarProperty Name="FromStation" ColumnName="FromStation" />
+          <ScalarProperty Name="ToStation" ColumnName="ToStation" />
+          <ScalarProperty Name="TotalBerths" ColumnName="TotalBerths" />
+          <ScalarProperty Name="AvailableBerths" ColumnName="AvailableBerths" />
+          <ScalarProperty Name="Fare" ColumnName="Fare" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddTrain" FunctionName="MiniCaseStudyDBModel.Store.AddTrain" />
+    <FunctionImportMapping FunctionImportName="BookTicket" FunctionName="MiniCaseStudyDBModel.Store.BookTicket" />
+    <FunctionImportMapping FunctionImportName="CancelTicket" FunctionName="MiniCaseStudyDBModel.Store.CancelTicket" />
+    <FunctionImportMapping FunctionImportName="DeleteTrain" FunctionName="MiniCaseStudyDBModel.Store.DeleteTrain" />
+    <FunctionImportMapping FunctionImportName="GetAvailableBerths" FunctionName="MiniCaseStudyDBModel.Store.GetAvailableBerths">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MiniCaseStudyDBModel.GetAvailableBerths_Result">
+          <ScalarProperty Name="Train_Id" ColumnName="Train_Id" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="AvailableBerths" ColumnName="AvailableBerths" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ViewBookings" FunctionName="MiniCaseStudyDBModel.Store.ViewBookings">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MiniCaseStudyDBModel.ViewBookings_Result">
+          <ScalarProperty Name="Booking_Id" ColumnName="Booking_Id" />
+          <ScalarProperty Name="Train_Id" ColumnName="Train_Id" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="PassengerName" ColumnName="PassengerName" />
+          <ScalarProperty Name="SeatsBooked" ColumnName="SeatsBooked" />
+          <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+          <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ViewCancellations" FunctionName="MiniCaseStudyDBModel.Store.ViewCancellations">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MiniCaseStudyDBModel.ViewCancellations_Result">
+          <ScalarProperty Name="CancellationDetailId" ColumnName="CancellationDetailId" />
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+          <ScalarProperty Name="SeatsCancelled" ColumnName="SeatsCancelled" />
+          <ScalarProperty Name="RefundAmount" ColumnName="RefundAmount" />
+          <ScalarProperty Name="CancellationDate" ColumnName="CancellationDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

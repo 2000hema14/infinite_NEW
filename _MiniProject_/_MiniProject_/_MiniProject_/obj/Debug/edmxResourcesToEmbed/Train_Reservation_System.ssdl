@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MiniCaseStudyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="Booking_Id" />
+    </Key>
+    <Property Name="Booking_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Train_Id" Type="int" />
+    <Property Name="Class" Type="varchar" MaxLength="50" />
+    <Property Name="PassengerName" Type="varchar" MaxLength="100" />
+    <Property Name="SeatsBooked" Type="int" />
+    <Property Name="BookingDate" Type="date" />
+    <Property Name="DepartureDate" Type="date" />
+    <Property Name="TotalAmount" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="CancellationDetails">
+    <Key>
+      <PropertyRef Name="CancellationDetailId" />
+    </Key>
+    <Property Name="CancellationDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookingId" Type="int" Nullable="false" />
+    <Property Name="SeatsCancelled" Type="int" Nullable="false" />
+    <Property Name="RefundAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CancellationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="train">
+    <Key>
+      <PropertyRef Name="Train_Id" />
+    </Key>
+    <Property Name="Train_Id" Type="int" Nullable="false" />
+    <Property Name="Class" Type="varchar" MaxLength="50" />
+    <Property Name="TrainName" Type="varchar" MaxLength="100" />
+    <Property Name="FromStation" Type="varchar" MaxLength="100" />
+    <Property Name="ToStation" Type="varchar" MaxLength="100" />
+    <Property Name="TotalBerths" Type="int" />
+    <Property Name="AvailableBerths" Type="int" />
+    <Property Name="Fare" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="IsActive" Type="varchar" MaxLength="8" />
+  </EntityType>
+  <Association Name="FK__Booking__Train_I__4BAC3F29">
+    <End Role="train" Type="Self.train" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="train">
+        <PropertyRef Name="Train_Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="Train_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Booking_CancellationDetails">
+    <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+    <End Role="CancellationDetails" Type="Self.CancellationDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Booking_Id" />
+      </Principal>
+      <Dependent Role="CancellationDetails">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="AddTrain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="trainId" Type="int" Mode="In" />
+    <Parameter Name="class" Type="varchar" Mode="In" />
+    <Parameter Name="trainName" Type="varchar" Mode="In" />
+    <Parameter Name="fromStation" Type="varchar" Mode="In" />
+    <Parameter Name="toStation" Type="varchar" Mode="In" />
+    <Parameter Name="totalBerths" Type="int" Mode="In" />
+    <Parameter Name="availableBerths" Type="int" Mode="In" />
+    <Parameter Name="fare" Type="decimal" Mode="In" />
+    <Parameter Name="isActive" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="BookTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="trainId" Type="int" Mode="In" />
+    <Parameter Name="class" Type="varchar" Mode="In" />
+    <Parameter Name="passengerName" Type="varchar" Mode="In" />
+    <Parameter Name="seatsBooked" Type="int" Mode="In" />
+    <Parameter Name="bookingDate" Type="date" Mode="In" />
+    <Parameter Name="departureDate" Type="date" Mode="In" />
+    <Parameter Name="dateOfTravel" Type="date" Mode="In" />
+  </Function>
+  <Function Name="CancelTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bookingId" Type="int" Mode="In" />
+    <Parameter Name="seatsToCancel" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteTrain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="trainId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetAvailableBerths" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ViewBookings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ViewCancellations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="MiniCaseStudyDBModelStoreContainer">
+    <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CancellationDetails" EntityType="Self.CancellationDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="train" EntityType="Self.train" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Booking__Train_I__4BAC3F29" Association="Self.FK__Booking__Train_I__4BAC3F29">
+      <End Role="train" EntitySet="train" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Booking_CancellationDetails" Association="Self.FK_Booking_CancellationDetails">
+      <End Role="Booking" EntitySet="Booking" />
+      <End Role="CancellationDetails" EntitySet="CancellationDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

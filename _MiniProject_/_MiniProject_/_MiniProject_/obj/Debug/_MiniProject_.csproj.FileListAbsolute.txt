@@ -1,0 +1,12 @@
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\bin\Debug\_MiniProject_.exe.config
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\bin\Debug\_MiniProject_.exe
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\bin\Debug\_MiniProject_.pdb
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\bin\Debug\EntityFramework.dll
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\bin\Debug\EntityFramework.SqlServer.dll
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\bin\Debug\EntityFramework.xml
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\bin\Debug\EntityFramework.SqlServer.xml
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\obj\Debug\_MiniProject_.csproj.AssemblyReference.cache
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\obj\Debug\_MiniProject_.csproj.CoreCompileInputs.cache
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\obj\Debug\_MiniProject_.csproj.CopyComplete
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\obj\Debug\_MiniProject_.exe
+C:\Hemalatha\Project\P1\_MiniProject_\_MiniProject_\_MiniProject_\obj\Debug\_MiniProject_.pdb
