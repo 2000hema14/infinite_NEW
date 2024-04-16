@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using System.Data.SqlClient;
 using _MiniProject_;
+
 
 namespace MiniProject_TrainReservation
 {
@@ -12,9 +14,12 @@ namespace MiniProject_TrainReservation
     {
         static void Main(string[] args)
         {
+            string connectionString = "Data Source=ICS-LT-68Q0LQ3;Initial Catalog=MiniCaseStudyDB;Integrated Security=True";
+
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine("                                        WELCOME TO RAILWAYS  Tickect Booking System                  ");
+            Console.WriteLine("                             WELCOME TO RAILWAYS  TICKET BOOKING SYSTEM           ");
             Console.ResetColor();
             Console.WriteLine();
 
@@ -35,10 +40,10 @@ namespace MiniProject_TrainReservation
             switch (choice)
             {
                 case "1":
-                    AdminLogin(adminUsername, adminPassword);
+                    AdminLogin(adminUsername, adminPassword, connectionString);
                     break;
                 case "2":
-                    UserLogin(userLoginId, userPassword);
+                    UserLogin(userLoginId, userPassword, connectionString);
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");
@@ -48,16 +53,23 @@ namespace MiniProject_TrainReservation
             Console.ReadKey();
         }
 
-        static void AdminLogin(string adminUsername, string adminPassword)
+        static void AdminLogin(string adminUsername, string adminPassword , string connectionString)
         {
-            Console.WriteLine("\nAdmin Login:");
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine("\nADMIN LOGIN:");
+            Console.WriteLine();
             Console.Write("Username: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
             string usernameInput = Console.ReadLine();
             Console.Write("Password: ");
             string passwordInput = Console.ReadLine();
 
             if (usernameInput == adminUsername && passwordInput == adminPassword)
             {
+               
                 Console.WriteLine("Admin logged in successfully.");
 
                 while (true)
@@ -75,10 +87,10 @@ namespace MiniProject_TrainReservation
                     switch (adminChoice)
                     {
                         case "1":
-                            AddTrain();
+                            AddTrain( connectionString);
                             break;
                         case "2":
-                            UpdateTrain();
+                            UpdateTrain( connectionString);
                             break;
                         case "3":
                             Console.Write("Enter Train ID to delete: ");
@@ -86,10 +98,10 @@ namespace MiniProject_TrainReservation
                             DeleteTrain(trainIdToDelete);
                             break;
                         case "4":
-                            ViewBookings();
+                            ViewBookings( connectionString);
                             break;
                         case "5":
-                            ViewCancellations();
+                            ViewCancellations( connectionString);
                             break;
                         case "6":
                             Environment.Exit(0);
@@ -112,8 +124,9 @@ namespace MiniProject_TrainReservation
 
         }
 
-        static void AddTrain()
+        static void AddTrain(string connectionString)
         {
+            Console.Clear();
             Console.WriteLine("\nAdd Train:");
             Console.Write("Enter Train ID: ");
             int trainId = Convert.ToInt32(Console.ReadLine());
@@ -165,8 +178,9 @@ namespace MiniProject_TrainReservation
                 Console.WriteLine("Train added successfully.");
             }
         }
-        static void UpdateTrain()
+        static void UpdateTrain(string connectionString)
         {
+            Console.Clear();
             Console.WriteLine("\nUpdate Train:");
             Console.Write("Enter Train ID to update: ");
             int trainId = Convert.ToInt32(Console.ReadLine());
@@ -215,6 +229,7 @@ namespace MiniProject_TrainReservation
 
         static void DeleteTrain(int trainId)
         {
+            Console.Clear();
             using (var context = new MiniCaseStudyDBEntities())
             {
                 var trainToDelete = context.trains.FirstOrDefault(t => t.Train_Id == trainId);
@@ -252,8 +267,9 @@ namespace MiniProject_TrainReservation
 
 
 
-        static void ViewBookings()
+        static void ViewBookings(string connectionString)
         {
+            Console.Clear();
             using (var context = new MiniCaseStudyDBEntities())
             {
                 var bookings = context.ViewBookings().ToList();
@@ -265,8 +281,9 @@ namespace MiniProject_TrainReservation
             }
         }
 
-        static void ViewCancellations()
+        static void ViewCancellations(string connectonString)
         {
+            Console.Clear();
             using (var context = new MiniCaseStudyDBEntities())
             {
                 var cancellations = context.ViewCancellations().ToList();
@@ -279,9 +296,16 @@ namespace MiniProject_TrainReservation
         }
 
 
-        static void UserLogin(string userLoginId, string userPassword)
+        static void UserLogin(string userLoginId, string userPassword, string connectionString)
         {
-            Console.WriteLine("\nUser Login:");
+            
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine("\nUSER LOGIN:");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("Login ID: ");
             string loginIdInput = Console.ReadLine();
             Console.Write("Password: ");
@@ -304,13 +328,13 @@ namespace MiniProject_TrainReservation
                     {
                         case "1":
                             Console.WriteLine("\nAvailable Trains:");
-                            DisplayAvailableTrainsForBooking();
+                            DisplayAvailableTrainsForBooking( connectionString);
                             Console.WriteLine("\nPassenger Booking:");
-                            BookTicket();
+                            BookTicket(connectionString);
                             break;
                         case "2":
                             Console.WriteLine("\nPassenger Cancellation:");
-                            CancelTicket();
+                            CancelTicket(connectionString);
                             break;
                         case "3":
                             return;
@@ -326,7 +350,7 @@ namespace MiniProject_TrainReservation
             }
         }
 
-        static void DisplayAvailableTrainsForBooking()
+        static void DisplayAvailableTrainsForBooking(string connectionString)
         {
             using (var context = new MiniCaseStudyDBEntities())
             {
@@ -350,7 +374,7 @@ namespace MiniProject_TrainReservation
             }
         }
 
-        static void BookTicket()
+        static void BookTicket(string connectonString)
         {
             Console.WriteLine("Booking a ticket...");
 
@@ -423,7 +447,7 @@ namespace MiniProject_TrainReservation
 
 
 
-        static void CancelTicket()
+        static void CancelTicket(string connectonString)
         {
             Console.WriteLine("Canceling a ticket...");
             Console.Write("Enter Booking ID: ");
