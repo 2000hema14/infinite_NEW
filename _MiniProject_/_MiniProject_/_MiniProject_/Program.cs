@@ -60,20 +60,24 @@ namespace MiniProject_TrainReservation
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("\nADMIN LOGIN:");
             Console.WriteLine();
-            Console.Write("Username: ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("Username: ");
             string usernameInput = Console.ReadLine();
             Console.Write("Password: ");
             string passwordInput = Console.ReadLine();
 
             if (usernameInput == adminUsername && passwordInput == adminPassword)
             {
-               
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.BackgroundColor = ConsoleColor.Black;
+
                 Console.WriteLine("Admin logged in successfully.");
 
                 while (true)
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.WriteLine("Select Option:");
                     Console.WriteLine("1. Add Train");
                     Console.WriteLine("2. Update Train");
@@ -120,6 +124,8 @@ namespace MiniProject_TrainReservation
             else
             {
                 Console.WriteLine("Invalid admin login credentials.");
+                Console.ReadLine();
+                AdminLogin( adminUsername,  adminPassword,  connectionString);
             }
 
         }
@@ -127,7 +133,12 @@ namespace MiniProject_TrainReservation
         static void AddTrain(string connectionString)
         {
             Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("\nAdd Train:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("Enter Train ID: ");
             int trainId = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter Class: ");
@@ -154,6 +165,8 @@ namespace MiniProject_TrainReservation
                 var existingTrain = context.trains.FirstOrDefault(t => t.Train_Id == trainId);
                 if (existingTrain != null)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.WriteLine("Error: Train with the same ID already exists.");
                     return;
                 }
@@ -174,6 +187,8 @@ namespace MiniProject_TrainReservation
 
                 context.trains.Add(newTrain);
                 context.SaveChanges();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.BackgroundColor = ConsoleColor.Black;
 
                 Console.WriteLine("Train added successfully.");
             }
@@ -181,7 +196,11 @@ namespace MiniProject_TrainReservation
         static void UpdateTrain(string connectionString)
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("\nUpdate Train:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("Enter Train ID to update: ");
             int trainId = Convert.ToInt32(Console.ReadLine());
 
@@ -217,11 +236,15 @@ namespace MiniProject_TrainReservation
                     train.Fare = newFare;
                     train.IsActive = newIsActive;
                     context.SaveChanges();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.BackgroundColor = ConsoleColor.Black;
 
                     Console.WriteLine("Train details updated successfully.");
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.WriteLine("Error: Train not found.");
                 }
             }
@@ -237,6 +260,9 @@ namespace MiniProject_TrainReservation
                 {
                     if (trainToDelete.IsActive.Equals("Active", StringComparison.OrdinalIgnoreCase))
                     {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.BackgroundColor = ConsoleColor.Black;
+
                         Console.Write("This train is active. Are you sure you want to delete it? (yes/no): ");
                         string confirmation = Console.ReadLine();
                         if (confirmation.ToLower() == "yes")
@@ -244,20 +270,28 @@ namespace MiniProject_TrainReservation
                             // Soft delete by setting IsActive to "Inactive"
                             trainToDelete.IsActive = "Inactive";
                             context.SaveChanges();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.BackgroundColor = ConsoleColor.Black;
                             Console.WriteLine("Train deactivated successfully!");
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.BackgroundColor = ConsoleColor.Black;
                             Console.WriteLine("Train deactivation cancelled.");
                         }
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.WriteLine("Train is already inactive.");
                     }
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.WriteLine("Train not found.");
                 }
             }
@@ -313,10 +347,14 @@ namespace MiniProject_TrainReservation
 
             if (loginIdInput == userLoginId && passwordInput == userPassword)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine("User logged in successfully.");
 
                 while (true)
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.WriteLine("\nSelect Option:");
                     Console.WriteLine("1. Book Ticket");
                     Console.WriteLine("2. Cancel Ticket");
@@ -346,7 +384,11 @@ namespace MiniProject_TrainReservation
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine("Invalid user login credentials.");
+                Console.ReadLine();
+                UserLogin(userLoginId, userPassword, connectionString);
             }
         }
 
@@ -376,9 +418,12 @@ namespace MiniProject_TrainReservation
 
         static void BookTicket(string connectonString)
         {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("Booking a ticket...");
 
-            // Prompt the user for necessary details
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
 
             Console.Write("Enter Train ID: ");
             int trainId = Convert.ToInt32(Console.ReadLine());
@@ -439,6 +484,8 @@ namespace MiniProject_TrainReservation
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.WriteLine("Error: The selected train is not active or does not exist.");
                 }
             }
@@ -448,8 +495,13 @@ namespace MiniProject_TrainReservation
 
 
         static void CancelTicket(string connectonString)
+
         {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("Canceling a ticket...");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("Enter Booking ID: ");
             int bookingId = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter Seats to Cancel: ");
@@ -482,15 +534,21 @@ namespace MiniProject_TrainReservation
                         }
 
                         _ = context.SaveChanges();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.WriteLine($"Ticket canceled successfully! Refund Amount: {refundAmount:C}");
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.WriteLine("Error: Invalid number of seats to cancel.");
                     }
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.WriteLine("Error: Booking ID not found.");
                 }
             }
