@@ -1,0 +1,4 @@
+C:\Hemalatha\Project\P1\MVC\Assessment\Mvc_Assessment_Q2\MovieApp_Assessment1\MovieApp_Assessment1\obj\Debug\MVC_Movie_Assessment1.csproj.CoreCompileInputs.cache
+C:\Hemalatha\Project\P1\MVC\Assessment\Mvc_Assessment_Q2\MovieApp_Assessment1\MovieApp_Assessment1\obj\Debug\MovieApp_Assessment1.dll
+C:\Hemalatha\Project\P1\MVC\Assessment\Mvc_Assessment_Q2\MovieApp_Assessment1\MovieApp_Assessment1\obj\Debug\MovieApp_Assessment1.pdb
+C:\Hemalatha\Project\P1\MVC\Assessment\Mvc_Assessment_Q2\MovieApp_Assessment1\MovieApp_Assessment1\obj\Debug\MVC_Movie_Assessment1.csproj.AssemblyReference.cache
